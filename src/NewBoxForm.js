@@ -6,10 +6,22 @@ class NewBoxForm extends Component {
         this.state={
             height: "",
             width: "",
-            color: ""
+            color: "",
+            id: 0,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.increaseId = this.increaseId.bind(this);
+    }
+
+    increaseId() {
+
+        const prevId = this.state.id;
+
+        this.setState({
+            ...this.state,
+            id: prevId + 1
+        })
     }
   
     handleChange(e){
@@ -20,7 +32,8 @@ class NewBoxForm extends Component {
 
     handleSubmit(e){
         e.preventDefault();
-        const newBox = {...this.state, id: Math.random() * 10000}
+        const newBox = {...this.state};
+        this.increaseId();
         this.props.createBox(newBox);
     }
 
